@@ -1,0 +1,27 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="32" x2="216" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#102033" />
+      <stop offset="1" stop-color="#153B31" />
+    </linearGradient>
+    <linearGradient id="leaf" x1="92" y1="76" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6EE7B7" />
+      <stop offset="1" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="orbit" x1="70" y1="78" x2="204" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E2E8F0" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#F8FAFC" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="60" fill="url(#bg)" />
+  <rect x="21.5" y="21.5" width="213" height="213" rx="54.5" stroke="#E2E8F0" stroke-opacity="0.12" />
+  <path d="M68 164C89 152.667 109 147 128 147C147 147 167 152.667 188 164" stroke="#F8FAFC" stroke-opacity="0.72" stroke-width="9" stroke-linecap="round" />
+  <path d="M64 188C86.6667 177.333 108 172 128 172C148 172 169.333 177.333 192 188" stroke="#F8FAFC" stroke-opacity="0.45" stroke-width="9" stroke-linecap="round" />
+  <path d="M74 103C87.3333 81 110.333 68 135 68C161.667 68 185 83 197 108" stroke="url(#orbit)" stroke-width="10" stroke-linecap="round" />
+  <circle cx="199" cy="109" r="8" fill="#F4C95D" />
+  <path d="M128 79C156.614 95.5352 174 122.103 174 150C174 182.927 154.002 205.285 128 215C101.998 205.285 82 182.927 82 150C82 122.103 99.386 95.5352 128 79Z" fill="url(#leaf)" />
+  <path d="M128 96C146.593 108.303 158 128.421 158 148.969C158 171.33 145.399 189.928 128 199.5C110.601 189.928 98 171.33 98 148.969C98 128.421 109.407 108.303 128 96Z" fill="#F8FAFC" fill-opacity="0.12" />
+  <path d="M128 96V195" stroke="#ECFDF5" stroke-opacity="0.95" stroke-width="6" stroke-linecap="round" />
+  <path d="M128 144C128 123.072 141.88 106.846 160.5 101.5C157.335 118.318 149.087 131.914 135.756 142.289C132.898 144.513 130.205 146.027 128 147.016V144Z" fill="#0F172A" fill-opacity="0.16" />
+  <path d="M128 143C128 122.072 114.12 105.846 95.5 100.5C98.6648 117.318 106.913 130.914 120.244 141.289C123.102 143.513 125.795 145.027 128 146.016V143Z" fill="#F8FAFC" fill-opacity="0.16" />
+</svg>
