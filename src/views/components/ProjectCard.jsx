@@ -3,6 +3,7 @@ import { ArrowUpRight, Blocks, Github, Play } from 'lucide-react';
 
 export function ProjectCard({ project, onArchitectureClick, index }) {
   const Icon = project.icon;
+  const previewStats = project.preview?.stats ?? [];
 
   return (
     <motion.article
@@ -21,9 +22,18 @@ export function ProjectCard({ project, onArchitectureClick, index }) {
           </div>
           <div className="project-logo-frame">
             <img src={project.image} alt={`${project.name} logo`} loading="lazy" />
-            <span>
+            <div className="project-preview-copy">
+              <strong>{project.preview?.title ?? project.name}</strong>
+              <p>{project.preview?.subtitle ?? project.overview}</p>
+            </div>
+            <div className="project-preview-tags" aria-label={`${project.name} preview highlights`}>
+              {previewStats.map((stat) => (
+                <span key={stat}>{stat}</span>
+              ))}
+            </div>
+            <span className="project-preview-status">
               <Play size={15} fill="currentColor" />
-              Live preview
+              {project.status ?? 'Case study'}
             </span>
           </div>
           <div className="preview-bars" aria-hidden="true">
@@ -41,6 +51,20 @@ export function ProjectCard({ project, onArchitectureClick, index }) {
         </span>
         <h3>{project.name}</h3>
         <p>{project.overview}</p>
+
+        <div className="project-role">
+          <span>Role</span>
+          <strong>{project.role}</strong>
+        </div>
+
+        <div className="project-metrics" aria-label={`${project.name} project metrics`}>
+          {project.metrics?.map((metric) => (
+            <div key={metric.label}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
+            </div>
+          ))}
+        </div>
 
         <div className="project-list">
           <strong>Key features</strong>

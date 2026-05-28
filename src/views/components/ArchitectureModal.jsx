@@ -46,6 +46,53 @@ export function ArchitectureModal({ project, onClose }) {
             <h3 id="architecture-title">{project.name} request flow</h3>
             <p>{project.architectureNote}</p>
 
+            <div className="modal-project-meta" aria-label={`${project.name} project summary`}>
+              <div>
+                <span>Role</span>
+                <strong>{project.role}</strong>
+              </div>
+              <div>
+                <span>Status</span>
+                <strong>{project.status ?? 'Case study'}</strong>
+              </div>
+              <div>
+                <span>Stack</span>
+                <strong>{project.techStack.slice(0, 4).join(' / ')}</strong>
+              </div>
+            </div>
+
+            {project.caseStudy ? (
+              <div className="case-study-grid">
+                <article>
+                  <span>Problem</span>
+                  <p>{project.caseStudy.problem}</p>
+                </article>
+                <article>
+                  <span>Solution</span>
+                  <p>{project.caseStudy.solution}</p>
+                </article>
+                <article>
+                  <span>Outcome</span>
+                  <p>{project.caseStudy.outcome}</p>
+                </article>
+              </div>
+            ) : null}
+
+            {project.engineeringHighlights?.length ? (
+              <div className="modal-engineering">
+                <span className="eyebrow">Engineering Highlights</span>
+                <div className="modal-engineering-grid">
+                  {project.engineeringHighlights.map((highlight) => (
+                    <article key={highlight.title}>
+                      <strong>{highlight.title}</strong>
+                      <p>{highlight.body}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <h4 className="architecture-subtitle">Request lifecycle</h4>
             <div className="architecture-flow">
               {project.architecture.map((step, index) => (
                 <div key={step} className="architecture-step-group">

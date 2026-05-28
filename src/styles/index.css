@@ -2248,8 +2248,10 @@ main {
   position: relative;
   display: grid;
   min-height: 252px;
+  align-content: center;
   place-items: center;
   gap: 14px;
+  padding: 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background:
@@ -2288,7 +2290,51 @@ main {
   transition: transform 260ms ease, filter 260ms ease;
 }
 
-.project-logo-frame span {
+.project-preview-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  max-width: 260px;
+  text-align: center;
+}
+
+.project-preview-copy strong {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.project-preview-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.project-preview-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+}
+
+.project-preview-tags span {
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(117, 240, 191, 0.22);
+  border-radius: 999px;
+  background: rgba(117, 240, 191, 0.08);
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 28px;
+}
+
+.project-preview-status {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -2348,6 +2394,56 @@ main {
 .project-content > p {
   margin: 0;
   font-size: 1rem;
+}
+
+.project-role {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.project-role span,
+.project-metrics span,
+.modal-project-meta span,
+.case-study-grid span {
+  color: var(--faint);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-role strong {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.project-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.project-metrics div {
+  display: grid;
+  gap: 5px;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(117, 240, 191, 0.08), transparent 54%),
+    rgba(255, 255, 255, 0.04);
+}
+
+.project-metrics strong {
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.35;
 }
 
 .project-list strong {
@@ -2476,6 +2572,81 @@ main {
   margin: 14px 0 24px;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.modal-project-meta {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.modal-project-meta div {
+  display: grid;
+  gap: 7px;
+  min-height: 92px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.modal-project-meta strong {
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.case-study-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.case-study-grid article {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(105, 217, 239, 0.08), transparent 54%),
+    rgba(255, 255, 255, 0.04);
+}
+
+.case-study-grid p,
+.modal-engineering-grid p {
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.modal-engineering {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-engineering-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modal-engineering-grid article {
+  padding: 14px;
+  border: 1px solid rgba(246, 199, 96, 0.22);
+  border-radius: var(--radius-md);
+  background: rgba(246, 199, 96, 0.055);
+}
+
+.modal-engineering-grid strong {
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.architecture-subtitle {
+  margin: 2px 0 12px;
+  color: var(--text);
+  font-size: 1rem;
 }
 
 .architecture-flow {
@@ -3571,6 +3742,11 @@ main {
     min-height: 350px;
   }
 
+  .modal-project-meta,
+  .modal-engineering-grid {
+    grid-template-columns: 1fr;
+  }
+
   .developer-workspace {
     min-height: 520px;
   }
@@ -3783,6 +3959,23 @@ main {
 
   .project-logo-frame {
     min-height: 210px;
+  }
+
+  .project-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .project-role,
+  .project-metrics div,
+  .case-study-grid article,
+  .modal-engineering-grid article {
+    border-radius: var(--radius-sm);
+  }
+
+  .architecture-modal {
+    max-height: calc(100svh - 24px);
+    padding: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .repo-row {

@@ -548,6 +548,26 @@ export const projects = [
     sourceUrl: 'https://github.com/vishal-rathod-02/SnapLink',
     overview:
       'A modern server-side rendered URL shortener with account-scoped links, private analytics, secure form handling, and a premium Bootstrap-based dashboard.',
+    status: 'Live production demo',
+    role: 'Full-stack development, SSR architecture, authentication, analytics workflow',
+    preview: {
+      title: 'Private analytics dashboard',
+      subtitle: 'Account-scoped links, clicks, activity timeline, and QR assets.',
+      stats: ['SSR', 'Auth', 'Analytics'],
+    },
+    metrics: [
+      { label: 'Security', value: 'CSRF + Rate limits' },
+      { label: 'Analytics', value: 'Clicks + activity' },
+      { label: 'Delivery', value: 'Express SSR' },
+    ],
+    caseStudy: {
+      problem:
+        'Short links need more than a redirect. Users need private ownership, duplicate handling, tracking, and a dashboard that stays fast without unnecessary frontend complexity.',
+      solution:
+        'Built a server-rendered Express application with session authentication, CSRF-protected forms, scoped link ownership, QR generation, custom aliases, and dashboard aggregation.',
+      outcome:
+        'The result is a production-oriented URL shortener with secure workflows, reusable link behavior, and analytics that communicate real user activity clearly.',
+    },
     features: [
       'Session-based signup, login, and logout',
       'Account-scoped links and private analytics',
@@ -562,6 +582,20 @@ export const projects = [
       'Reuses an existing default short URL when the same account submits the same original URL again.',
       'Tracks creation and visit activity for analytics, URL performance, and user behavior visibility.',
     ],
+    engineeringHighlights: [
+      {
+        title: 'Secure form workflow',
+        body: 'Session checks, CSRF protection, and rate limits protect sensitive auth and link creation routes.',
+      },
+      {
+        title: 'Analytics data model',
+        body: 'Creation and visit events are stored separately so the dashboard can show totals, trends, top URLs, and timelines.',
+      },
+      {
+        title: 'SSR product experience',
+        body: 'EJS views keep authenticated dashboards fast while Bootstrap provides a clean, responsive interface layer.',
+      },
+    ],
     architecture: ['EJS + Bootstrap SSR Views', 'Express Routes + Middleware', 'Auth + CSRF + Rate Limits', 'Mongoose Models', 'MongoDB'],
     architectureNote:
       'Authenticated users submit forms through CSRF-protected SSR routes. Express middleware handles sessions and rate limits, Mongoose persists link records and activity events, and dashboard views render aggregate analytics back to the user.',
@@ -575,12 +609,46 @@ export const projects = [
     sourceUrl: 'https://github.com/vishal-rathod-02/Insta-News-App',
     overview:
       'A modern news experience focused on organized feeds, quick scanning, and efficient content discovery.',
+    status: 'Repository available',
+    role: 'Frontend architecture, feed experience, API integration planning',
+    preview: {
+      title: 'Feed-first reading interface',
+      subtitle: 'Designed for fast scanning, categories, saved items, and dense content browsing.',
+      stats: ['Feeds', 'Filters', 'Reader UI'],
+    },
+    metrics: [
+      { label: 'Content', value: 'RSS-ready' },
+      { label: 'UI', value: 'Category views' },
+      { label: 'State', value: 'Saved articles' },
+    ],
+    caseStudy: {
+      problem:
+        'News interfaces can become cluttered quickly. The challenge is organizing dynamic feed content so users can scan, filter, and open stories without cognitive overload.',
+      solution:
+        'Structured the app around reusable article cards, category-driven views, saved content states, and a feed service layer that can normalize incoming source data.',
+      outcome:
+        'The project demonstrates frontend composition, API integration thinking, and product-focused information layout for content-heavy applications.',
+    },
     features: ['RSS/feed handling', 'Category filters', 'Saved articles', 'Clean reading UI'],
-    techStack: ['React.js', 'Node.js', 'API Integration', 'JavaScript'],
+    techStack: ['React.js', 'Node.js', 'TypeScript', 'API Integration', 'JavaScript'],
     highlights: [
       'Built around reusable feed and article presentation components.',
       'Planned for resilient API fetching and loading states.',
       'Optimized layout for browsing dense information quickly.',
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Content normalization',
+        body: 'The feed layer is designed to prepare different article sources before rendering consistent UI components.',
+      },
+      {
+        title: 'Reusable reader surface',
+        body: 'Article cards, category views, and saved states can evolve without rewriting the entire page flow.',
+      },
+      {
+        title: 'Information density',
+        body: 'The layout focuses on quick scanning, readable hierarchy, and reduced visual noise for news browsing.',
+      },
     ],
     architecture: ['React UI', 'Feed Service', 'API Adapter', 'Content Cache'],
     architectureNote:
@@ -594,12 +662,46 @@ export const projects = [
     icon: Sprout,
     overview:
       'An agriculture-focused platform concept for presenting crop, field, and decision-support insights through a modern interface.',
+    status: 'In development',
+    role: 'Product UI, domain workflow design, scalable route planning',
+    preview: {
+      title: 'Agriculture intelligence dashboard',
+      subtitle: 'Field-aware visual summaries for crop and decision-support insights.',
+      stats: ['Maps', 'Insights', 'Data UI'],
+    },
+    metrics: [
+      { label: 'Domain', value: 'Agriculture' },
+      { label: 'Focus', value: 'Decision support' },
+      { label: 'System', value: 'API-ready' },
+    ],
+    caseStudy: {
+      problem:
+        'Agriculture tools need to communicate complex field and crop data in a way that remains useful for real operational decisions.',
+      solution:
+        'Designed a dashboard-first experience with data visualization, field-focused UI patterns, and an architecture that can connect analysis services to frontend views.',
+      outcome:
+        'The concept positions AgriVision as a scalable product surface for domain-specific insights rather than a generic dashboard clone.',
+    },
     features: ['Insight dashboard', 'Data visualization', 'Field-focused UI', 'Scalable route structure'],
     techStack: ['React.js', 'Python', 'MongoDB', 'API Design'],
     highlights: [
       'Designed around domain-specific data rather than generic dashboards.',
       'Uses clear visual hierarchy for operational decision-making.',
       'Prepared for backend services that can evolve with data sources.',
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Domain-first interface',
+        body: 'The UI is structured around field and crop decisions, keeping the product closer to real user workflows.',
+      },
+      {
+        title: 'Service-ready architecture',
+        body: 'The frontend is prepared to receive analysis results from backend services as the system grows.',
+      },
+      {
+        title: 'Dashboard hierarchy',
+        body: 'Visual summaries, drill-down areas, and route planning keep dense agriculture data easier to interpret.',
+      },
     ],
     architecture: ['Frontend Dashboard', 'API Gateway', 'Analysis Service', 'Database'],
     architectureNote:

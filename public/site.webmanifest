@@ -1,0 +1,17 @@
+{
+  "name": "Vishal Rathod Portfolio",
+  "short_name": "Vishal Portfolio",
+  "description": "Modern full-stack developer portfolio for Vishal Rathod.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0f0d",
+  "theme_color": "#75f0bf",
+  "icons": [
+    {
+      "src": "/assets/MyProfile.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
