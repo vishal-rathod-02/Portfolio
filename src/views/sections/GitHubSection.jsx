@@ -1,6 +1,24 @@
-import { ExternalLink, GitFork, Github, Star, Users } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BarChart3,
+  CircleCheck,
+  CloudOff,
+  ExternalLink,
+  GitFork,
+  Github,
+  Radio,
+  Star,
+  Users,
+} from 'lucide-react';
 import { useGitHubProfile } from '../../controllers/useGitHubProfile';
-import { developer, githubStats, topRepositories } from '../../models/portfolio.model';
+import {
+  developer,
+  githubLanguageStack,
+  githubProofStats,
+  githubStats,
+  projects,
+  topRepositories,
+} from '../../models/portfolio.model';
 import { Reveal } from '../components/Reveal.jsx';
 import { SectionHeader } from '../components/SectionHeader.jsx';
 
@@ -10,6 +28,7 @@ const contributionWeeks = Array.from({ length: 52 }, (_, week) =>
 
 export function GitHubSection() {
   const { profile, summary, isLoading, isError } = useGitHubProfile(developer.githubUsername);
+  const projectLogos = Object.fromEntries(projects.map((project) => [project.name, project.image]));
   const dynamicStats = profile
     ? [
         { label: 'Public Repos', value: profile.public_repos, icon: Github },
@@ -18,19 +37,52 @@ export function GitHubSection() {
         { label: 'Forks', value: summary.totalForks, icon: GitFork },
       ]
     : githubStats;
-  const repositories = summary.latestRepos.length ? summary.latestRepos : topRepositories;
-  const topLanguageCount = Math.max(...summary.topLanguages.map((item) => item.count), 1);
+  const languageUsage = summary.topLanguages.length ? summary.topLanguages : githubLanguageStack;
+  const topLanguageCount = Math.max(...languageUsage.map((item) => item.count), 1);
+  const connectionState = isLoading
+    ? {
+        label: 'Connecting to GitHub',
+        detail: 'Fetching public profile and repository activity...',
+        className: 'github-status--loading',
+        icon: Radio,
+      }
+    : isError
+      ? {
+          label: 'Fallback data active',
+          detail: 'GitHub data may be temporarily unavailable. Featured projects remain available below.',
+          className: 'github-status--fallback',
+          icon: CloudOff,
+        }
+      : {
+          label: profile ? 'Live GitHub data' : 'Curated profile data',
+          detail: profile
+            ? 'Profile, repositories, stars, forks, and languages loaded from the GitHub API.'
+            : 'Showing curated project proof while GitHub initializes.',
+          className: 'github-status--live',
+          icon: CircleCheck,
+        };
+  const ConnectionIcon = connectionState.icon;
+  const repositoryCount = profile?.public_repos ?? '6';
+  const githubLocation = profile?.location ?? 'Nagpur, Maharashtra';
 
   return (
     <section className="content-section github-section section-shell" id="github">
       <SectionHeader
         eyebrow="GitHub"
-        title="Live public GitHub profile and repository activity."
-        copy="The dashboard now loads your public GitHub profile, repositories, stars, forks, and language usage directly from the GitHub API."
+        title="Developer proof through repositories, stack signals, and project activity."
+        copy="A recruiter-friendly GitHub dashboard with live API data when available, curated fallback proof, featured repositories, and technology distribution."
       />
 
       <div className="github-layout">
         <Reveal className="github-panel">
+          <div className={`github-status ${connectionState.className}`}>
+            <ConnectionIcon size={18} />
+            <div>
+              <strong>{connectionState.label}</strong>
+              <span>{connectionState.detail}</span>
+            </div>
+          </div>
+
           <div className="github-panel__heading">
             <div className="card-icon">
               <Github size={20} />
@@ -42,44 +94,92 @@ export function GitHubSection() {
                   ? 'Loading live GitHub data...'
                   : isError
                     ? 'Showing fallback data while GitHub is unavailable.'
-                    : profile?.bio || `@${developer.githubUsername}`}
+                    : profile?.bio || `@${developer.githubUsername} | Full-stack developer`}
               </p>
             </div>
           </div>
 
-          {profile ? (
-            <div className="github-profile">
-              <img src={profile.avatar_url} alt={`${profile.login} GitHub avatar`} loading="lazy" />
+          <div className="github-profile">
+            <div className="github-profile__main">
+              <img
+                src={profile?.avatar_url ?? developer.profileImage}
+                alt={`${profile?.login ?? developer.name} GitHub avatar`}
+                loading="lazy"
+                decoding="async"
+              />
               <div>
-                <strong>@{profile.login}</strong>
+                <span className="github-profile__eyebrow">Developer identity</span>
+                <strong>@{profile?.login ?? developer.githubUsername}</strong>
                 <span>
-                  {profile.location ? `${profile.location} · ` : ''}
-                  {profile.public_repos} public repositories
+                  {githubLocation} | {repositoryCount} public repositories
                 </span>
               </div>
-              <a href={profile.html_url} target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
+              <a
+                className="github-profile__open"
+                href={profile?.html_url ?? developer.links.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open GitHub profile"
+              >
                 <ExternalLink size={18} />
               </a>
             </div>
-          ) : null}
 
-          <div className="contribution-grid" aria-label="Contribution graph preview">
-            {contributionWeeks.map((week, weekIndex) => (
-              <div className="contribution-week" key={`week-${weekIndex}`}>
-                {week.map((level, dayIndex) => (
-                  <span
-                    key={`day-${weekIndex}-${dayIndex}`}
-                    className={`contribution-cell contribution-cell--${level}`}
-                  />
-                ))}
-              </div>
-            ))}
+            <div className="github-profile__chips" aria-label="GitHub profile signals">
+              <span>Public code</span>
+              <span>Case studies</span>
+              <span>Full-stack builds</span>
+            </div>
+          </div>
+
+          <div className="github-cta-row">
+            <a className="github-action-link" href={developer.links.github} target="_blank" rel="noreferrer">
+              <Github size={17} />
+              View GitHub Profile
+            </a>
+            <a className="github-action-link" href="#projects">
+              Explore Case Studies
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+
+          <div className="github-activity-card">
+            <div className="github-subhead">
+              <h3>Contribution rhythm</h3>
+              <span>Activity preview</span>
+            </div>
+            <div className="contribution-grid" aria-label="Contribution graph preview">
+              {contributionWeeks.map((week, weekIndex) => (
+                <div className="contribution-week" key={`week-${weekIndex}`}>
+                  {week.map((level, dayIndex) => (
+                    <span
+                      key={`day-${weekIndex}-${dayIndex}`}
+                      className={`contribution-cell contribution-cell--${level}`}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="github-activity-legend">
+              <span>Less</span>
+              <i className="contribution-cell contribution-cell--1" />
+              <i className="contribution-cell contribution-cell--2" />
+              <i className="contribution-cell contribution-cell--3" />
+              <i className="contribution-cell contribution-cell--4" />
+              <span>More</span>
+            </div>
           </div>
 
           <div className="language-bars">
-            <h3>Language usage</h3>
-            {summary.topLanguages.length ? (
-              summary.topLanguages.map((item) => (
+            <div className="github-subhead">
+              <h3>
+                <BarChart3 size={17} />
+                Language usage
+              </h3>
+              <span>{summary.topLanguages.length ? 'Live repositories' : 'Portfolio stack'}</span>
+            </div>
+            {languageUsage.length ? (
+              languageUsage.map((item) => (
                 <div className="language-row" key={item.language}>
                   <span>{item.language}</span>
                   <div>
@@ -109,21 +209,54 @@ export function GitHubSection() {
             })}
           </Reveal>
 
+          <Reveal className="github-proof-grid">
+            {githubProofStats.map((stat) => {
+              const Icon = stat.icon;
+
+              return (
+                <div className="github-proof-card" key={stat.label}>
+                  <Icon size={18} />
+                  <span>{stat.label}</span>
+                  <strong>{stat.value}</strong>
+                  <p>{stat.detail}</p>
+                </div>
+              );
+            })}
+          </Reveal>
+
           <Reveal className="repo-list">
-            <h3>{profile ? 'Updated repositories' : 'Top repositories'}</h3>
-            {repositories.map((repo) => (
+            <div className="github-subhead">
+              <h3>Featured repositories</h3>
+              <span>Source and project proof</span>
+            </div>
+            {topRepositories.map((repo) => (
               <a
-                className="repo-row"
+                className="repo-card"
                 key={repo.name}
                 href={repo.html_url ?? developer.links.github}
                 target="_blank"
                 rel="noreferrer"
               >
-                <div>
-                  <strong>{repo.name}</strong>
-                  <span>{repo.description ?? repo.activity ?? 'Repository activity'}</span>
+                <div className="repo-card__top">
+                  <span className="repo-favicon" aria-hidden="true">
+                    {projectLogos[repo.name] ? (
+                      <img src={projectLogos[repo.name]} alt="" loading="lazy" decoding="async" />
+                    ) : (
+                      <Github size={18} />
+                    )}
+                  </span>
+                  <div>
+                    <strong>{repo.name}</strong>
+                    <span>{repo.type}</span>
+                  </div>
+                  <em>{repo.status ?? repo.language}</em>
                 </div>
-                <em>{repo.language ?? 'Repo'}</em>
+                <p>{repo.description ?? repo.activity ?? 'Repository activity'}</p>
+                <div className="repo-stack">
+                  {(repo.stack ?? [repo.language]).map((tech) => (
+                    <span key={tech}>{tech}</span>
+                  ))}
+                </div>
               </a>
             ))}
           </Reveal>

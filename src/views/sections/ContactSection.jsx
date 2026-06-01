@@ -11,7 +11,7 @@ export function ContactSection() {
     <section className="content-section contact-section section-shell" id="contact">
       <SectionHeader
         eyebrow="Contact"
-        title="Letâ€™s connect the portfolio to your real professional links next."
+        title="Let’s connect the portfolio to your real professional links next."
         copy="The contact surface is ready for your email, LinkedIn, GitHub, and resume. Clipboard actions are already wired."
       />
 

@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Blocks, Github, Play } from 'lucide-react';
+import { ArrowUpRight, Blocks, Github, Maximize2, Play } from 'lucide-react';
+import { useState } from 'react';
 
-export function ProjectCard({ project, onArchitectureClick, index }) {
+export function ProjectCard({ project, onArchitectureClick, onGalleryOpen, index }) {
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const Icon = project.icon;
   const previewStats = project.preview?.stats ?? [];
+  const mediaItems = project.media ?? [];
+  const activeMedia = mediaItems[activeMediaIndex] ?? mediaItems[0];
 
   return (
     <motion.article
@@ -20,27 +24,82 @@ export function ProjectCard({ project, onArchitectureClick, index }) {
             <span />
             <span />
           </div>
-          <div className="project-logo-frame">
-            <img src={project.image} alt={`${project.name} logo`} loading="lazy" />
-            <div className="project-preview-copy">
-              <strong>{project.preview?.title ?? project.name}</strong>
-              <p>{project.preview?.subtitle ?? project.overview}</p>
-            </div>
-            <div className="project-preview-tags" aria-label={`${project.name} preview highlights`}>
+          <div className={`project-logo-frame ${activeMedia ? 'project-logo-frame--media' : ''}`}>
+            {activeMedia ? (
+              <>
+                <button
+                  type="button"
+                  className="project-media-frame project-media-frame--button"
+                  onClick={() => onGalleryOpen(project, activeMediaIndex)}
+                  aria-label={`Open ${project.name} ${activeMedia.label} screenshot gallery`}
+                  data-cursor="Gallery"
+                >
+                  <img
+                    className="project-media-image"
+                    src={activeMedia.src}
+                    alt={activeMedia.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="project-media-caption">
+                    <span>{activeMedia.label}</span>
+                    <strong>{activeMedia.description}</strong>
+                  </div>
+                  <span className="project-media-expand">
+                    <Maximize2 size={15} />
+                    View gallery
+                  </span>
+                </button>
+                <div className="project-media-controls" aria-label={`${project.name} screenshots`}>
+                  {mediaItems.map((item, mediaIndex) => (
+                    <button
+                      type="button"
+                      key={item.label}
+                      className={mediaIndex === activeMediaIndex ? 'project-media-dot project-media-dot--active' : 'project-media-dot'}
+                      onClick={() => setActiveMediaIndex(mediaIndex)}
+                      aria-label={`Show ${item.label} preview`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <img src={project.image} alt={`${project.name} logo`} loading="lazy" decoding="async" />
+                <div className="project-preview-copy">
+                  <strong>{project.preview?.title ?? project.name}</strong>
+                  <p>{project.preview?.subtitle ?? project.overview}</p>
+                </div>
+                <div className="project-preview-tags" aria-label={`${project.name} preview highlights`}>
+                  {previewStats.map((stat) => (
+                    <span key={stat}>{stat}</span>
+                  ))}
+                </div>
+                <span className="project-preview-status">
+                  <Play size={15} fill="currentColor" />
+                  {project.status ?? 'Case study'}
+                </span>
+              </>
+            )}
+          </div>
+          {activeMedia ? (
+            <div className="project-preview-meta">
+              <span>
+                <Play size={15} fill="currentColor" />
+                {project.status ?? 'Case study'}
+              </span>
               {previewStats.map((stat) => (
                 <span key={stat}>{stat}</span>
               ))}
             </div>
-            <span className="project-preview-status">
-              <Play size={15} fill="currentColor" />
-              {project.status ?? 'Case study'}
-            </span>
-          </div>
-          <div className="preview-bars" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
+          ) : (
+            <div className="preview-bars" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+          )}
         </div>
       </div>
 
@@ -49,7 +108,15 @@ export function ProjectCard({ project, onArchitectureClick, index }) {
           <Icon size={16} />
           {project.type}
         </span>
-        <h3>{project.name}</h3>
+        <div className="project-title-lockup">
+          <span className="project-favicon" aria-hidden="true">
+            <img src={project.image} alt="" loading="lazy" decoding="async" />
+          </span>
+          <div>
+            <h3>{project.name}</h3>
+            <span>{project.status ?? 'Case study'}</span>
+          </div>
+        </div>
         <p>{project.overview}</p>
 
         <div className="project-role">

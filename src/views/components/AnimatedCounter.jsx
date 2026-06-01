@@ -1,7 +1,7 @@
 import { useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
-export function AnimatedCounter({ value, suffix = '', duration = 1100 }) {
+export function AnimatedCounter({ value, suffix = '', duration = 1100, className = '' }) {
   const ref = useRef(null);
   const [count, setCount] = useState(0);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
@@ -32,7 +32,7 @@ export function AnimatedCounter({ value, suffix = '', duration = 1100 }) {
   }, [duration, isInView, value]);
 
   return (
-    <strong ref={ref}>
+    <strong className={className} ref={ref}>
       {count}
       {suffix}
     </strong>

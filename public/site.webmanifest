@@ -6,6 +6,15 @@
   "display": "standalone",
   "background_color": "#0b0f0d",
   "theme_color": "#75f0bf",
+  "screenshots": [
+    {
+      "src": "/assets/portfolio-og.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Vishal Rathod portfolio project preview"
+    }
+  ],
   "icons": [
     {
       "src": "/assets/MyProfile.jpg",

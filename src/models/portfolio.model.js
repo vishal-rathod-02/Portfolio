@@ -1,18 +1,28 @@
 import {
+  Activity,
   AppWindow,
   Atom,
+  BadgeCheck,
+  BriefcaseBusiness,
   Braces,
+  Building2,
+  CalendarDays,
   Code2,
   Cpu,
   Database,
+  Download,
+  GraduationCap,
   GitBranch,
   Globe2,
   Layers3,
   Mail,
+  MapPin,
   Newspaper,
+  Rocket,
   Server,
   ShieldCheck,
   Sprout,
+  Target,
   Workflow,
   Zap,
 } from 'lucide-react';
@@ -39,6 +49,7 @@ export const navItems = [
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
   { id: 'insights', label: 'Insights' },
   { id: 'github', label: 'GitHub' },
   { id: 'contact', label: 'Contact' },
@@ -73,9 +84,18 @@ export const sectionDividers = [
     signal: 'execution',
   },
   {
-    id: 'projects-insights',
+    id: 'projects-experience',
     index: '04',
     from: 'Projects',
+    to: 'Experience',
+    target: 'experience',
+    command: 'experience.mapImpact(projects)',
+    signal: 'proof',
+  },
+  {
+    id: 'experience-insights',
+    index: '05',
+    from: 'Experience',
     to: 'Insights',
     target: 'insights',
     command: 'notes.extractEngineering()',
@@ -83,7 +103,7 @@ export const sectionDividers = [
   },
   {
     id: 'insights-terminal',
-    index: '05',
+    index: '06',
     from: 'Insights',
     to: 'Terminal',
     target: 'terminal',
@@ -92,7 +112,7 @@ export const sectionDividers = [
   },
   {
     id: 'terminal-github',
-    index: '06',
+    index: '07',
     from: 'Terminal',
     to: 'GitHub',
     target: 'github',
@@ -101,7 +121,7 @@ export const sectionDividers = [
   },
   {
     id: 'github-contact',
-    index: '07',
+    index: '08',
     from: 'GitHub',
     to: 'Contact',
     target: 'contact',
@@ -555,6 +575,32 @@ export const projects = [
       subtitle: 'Account-scoped links, clicks, activity timeline, and QR assets.',
       stats: ['SSR', 'Auth', 'Analytics'],
     },
+    media: [
+      {
+        label: 'Create Link',
+        src: '/assets/projects/optimized/snaplink-create.jpg',
+        alt: 'SnapLink create short URL screen with destination URL and custom alias input',
+        description: 'Secure URL creation workflow with custom aliases and recent generated links.',
+      },
+      {
+        label: 'Analytics',
+        src: '/assets/projects/optimized/snaplink-dashboard.jpg',
+        alt: 'SnapLink analytics dashboard showing URLs, clicks, activity, and top performing links',
+        description: 'Private analytics dashboard with totals, averages, trends, and top performing links.',
+      },
+      {
+        label: 'Library',
+        src: '/assets/projects/optimized/snaplink-library.jpg',
+        alt: 'SnapLink manage link library screen with search filters and link actions',
+        description: 'Account-scoped link management with search, filters, QR access, and delete actions.',
+      },
+      {
+        label: 'QR Share',
+        src: '/assets/projects/optimized/snaplink-qr-modal.jpg',
+        alt: 'SnapLink QR code share modal with copy and download actions',
+        description: 'QR preview modal with copy, open, PNG download, and SVG download actions.',
+      },
+    ],
     metrics: [
       { label: 'Security', value: 'CSRF + Rate limits' },
       { label: 'Analytics', value: 'Clicks + activity' },
@@ -616,6 +662,26 @@ export const projects = [
       subtitle: 'Designed for fast scanning, categories, saved items, and dense content browsing.',
       stats: ['Feeds', 'Filters', 'Reader UI'],
     },
+    media: [
+      {
+        label: 'Discover',
+        src: '/assets/projects/optimized/instanews-discover.jpg',
+        alt: 'InstaNews discover page with hero news carousel, navigation, weather card, and trending feed',
+        description: 'Discovery surface with category navigation, hero carousel, and trending news rail.',
+      },
+      {
+        label: 'Business',
+        src: '/assets/projects/optimized/instanews-business.jpg',
+        alt: 'InstaNews business category page with subcategory filters and live feed sidebar',
+        description: 'Category view with business filters, article cards, and live feed timeline.',
+      },
+      {
+        label: 'Saved',
+        src: '/assets/projects/optimized/instanews-saved.jpg',
+        alt: 'InstaNews saved articles page with bookmarked news cards',
+        description: 'Saved articles workflow with bookmarked cards, read actions, and share controls.',
+      },
+    ],
     metrics: [
       { label: 'Content', value: 'RSS-ready' },
       { label: 'UI', value: 'Category views' },
@@ -661,51 +727,191 @@ export const projects = [
     image: '/assets/AgriVision.svg',
     icon: Sprout,
     overview:
-      'An agriculture-focused platform concept for presenting crop, field, and decision-support insights through a modern interface.',
-    status: 'In development',
-    role: 'Product UI, domain workflow design, scalable route planning',
+      'An internship agriculture intelligence platform for satellite-based field monitoring, vegetation analysis, weather context, and decision-support workflows.',
+    status: 'Private internship project',
+    role: 'Product UI, satellite dashboard workflows, field analytics, and decision-support experience',
     preview: {
-      title: 'Agriculture intelligence dashboard',
-      subtitle: 'Field-aware visual summaries for crop and decision-support insights.',
-      stats: ['Maps', 'Insights', 'Data UI'],
+      title: 'Satellite field intelligence',
+      subtitle: 'Field maps, NDVI trends, weather timing, AI cues, and task planning.',
+      stats: ['NDVI', 'Field Maps', 'AI Cues'],
     },
+    media: [
+      {
+        label: 'Map',
+        src: '/assets/projects/optimized/agrivision-map.jpg',
+        alt: 'AgriVision satellite field map with vegetation index overlay and field sidebar',
+        description: 'Satellite workspace with field selection, vegetation index overlay, and map controls.',
+      },
+      {
+        label: 'Analytics',
+        src: '/assets/projects/optimized/agrivision-analytics.jpg',
+        alt: 'AgriVision field analytics overview with recent pass, confidence, trend, and performance tabs',
+        description: 'Field overview showing recent pass confidence, trend status, and analytics navigation.',
+      },
+      {
+        label: 'Canopy',
+        src: '/assets/projects/optimized/agrivision-canopy-soil.jpg',
+        alt: 'AgriVision canopy health and soil profile dashboard with NDVI and moisture indicators',
+        description: 'Canopy health, soil profile, moisture, cover, and field takeaway summaries.',
+      },
+      {
+        label: 'Trends',
+        src: '/assets/projects/optimized/agrivision-trends.jpg',
+        alt: 'AgriVision spectral trends timeline with NDVI chart and baseline comparison',
+        description: 'Spectral timeline for NDVI movement, baseline comparison, and pass history.',
+      },
+      {
+        label: 'AI Cues',
+        src: '/assets/projects/optimized/agrivision-ai-cues.jpg',
+        alt: 'AgriVision agronomist AI panel with vegetation stress warning and recovery signal',
+        description: 'Agronomist AI cues translating spectral patterns into field-ready recommendations.',
+      },
+      {
+        label: 'Weather',
+        src: '/assets/projects/optimized/agrivision-weather.jpg',
+        alt: 'AgriVision weather and timing dashboard with field weather pulse',
+        description: 'Weather timing view connecting local conditions with field operation windows.',
+      },
+      {
+        label: 'Tasks',
+        src: '/assets/projects/optimized/agrivision-task-planner.jpg',
+        alt: 'AgriVision task planner with manual tasks, validations, and recent interventions',
+        description: 'Follow-up task planner for validation imagery, moisture checks, and interventions.',
+      },
+    ],
     metrics: [
-      { label: 'Domain', value: 'Agriculture' },
-      { label: 'Focus', value: 'Decision support' },
-      { label: 'System', value: 'API-ready' },
+      { label: 'Domain', value: 'Satellite agriculture' },
+      { label: 'Indexes', value: 'NDVI / NDMI / EVI' },
+      { label: 'Workflow', value: 'AI cues + tasks' },
     ],
     caseStudy: {
       problem:
-        'Agriculture tools need to communicate complex field and crop data in a way that remains useful for real operational decisions.',
+        'Satellite agriculture data can be difficult to act on when maps, vegetation indexes, weather, trends, and field follow-ups live in separate workflows.',
       solution:
-        'Designed a dashboard-first experience with data visualization, field-focused UI patterns, and an architecture that can connect analysis services to frontend views.',
+        'Designed an integrated satellite lab experience with field selection, vegetation and moisture layers, NDVI trend analysis, weather timing, agronomist AI cues, and trackable task planning.',
       outcome:
-        'The concept positions AgriVision as a scalable product surface for domain-specific insights rather than a generic dashboard clone.',
+        'The result is a domain-specific dashboard that turns remote-sensing signals into clearer field decisions, validation tasks, and monitoring workflows.',
     },
-    features: ['Insight dashboard', 'Data visualization', 'Field-focused UI', 'Scalable route structure'],
-    techStack: ['React.js', 'Python', 'MongoDB', 'API Design'],
+    features: [
+      'Satellite field map with vegetation and moisture layers',
+      'Field analytics dashboard with health, moisture, and growth signals',
+      'Spectral timeline with NDVI, EVI, SAVI, and NDMI views',
+      'Weather and timing module for field operation context',
+      'Agronomist AI recommendations and task planner workflows',
+    ],
+    techStack: ['React.js', 'Python', 'MongoDB', 'REST APIs', 'Satellite Data', 'Geospatial UI'],
     highlights: [
-      'Designed around domain-specific data rather than generic dashboards.',
-      'Uses clear visual hierarchy for operational decision-making.',
-      'Prepared for backend services that can evolve with data sources.',
+      'Designed around real agriculture workflows including field selection, pass refresh, weather timing, and validation tasks.',
+      'Transforms spectral signals into readable health, moisture, trend, and AI recommendation surfaces.',
+      'Uses a product-style dashboard layout to make dense geospatial data easier to inspect and act on.',
     ],
     engineeringHighlights: [
       {
-        title: 'Domain-first interface',
-        body: 'The UI is structured around field and crop decisions, keeping the product closer to real user workflows.',
+        title: 'Geospatial product surface',
+        body: 'Satellite imagery, field polygons, layer controls, and side panels are arranged around field inspection rather than generic reporting.',
       },
       {
-        title: 'Service-ready architecture',
-        body: 'The frontend is prepared to receive analysis results from backend services as the system grows.',
+        title: 'Index-driven analytics',
+        body: 'NDVI, NDMI, EVI, and SAVI views organize spectral signals into dashboard cards, timelines, comparison views, and status summaries.',
       },
       {
-        title: 'Dashboard hierarchy',
-        body: 'Visual summaries, drill-down areas, and route planning keep dense agriculture data easier to interpret.',
+        title: 'Decision workflow',
+        body: 'AI cues, weather context, and task planning connect analysis output with concrete follow-up actions for field operators.',
       },
     ],
-    architecture: ['Frontend Dashboard', 'API Gateway', 'Analysis Service', 'Database'],
+    architecture: ['React Field Workspace', 'Map + Layer Controls', 'Satellite Index Processing', 'AI Recommendation Layer', 'Task + Field Data Store'],
     architectureNote:
-      'Domain data flows into an analysis layer, then the frontend presents concise recommendations, visual summaries, and drill-down views.',
+      'Field geometry and satellite pass data are surfaced through the React workspace. Index processing feeds health, moisture, and trend views, while the recommendation layer converts signals into cues and task-planning actions for field operators.',
+  },
+];
+
+export const experienceStats = [
+  { label: 'Professional Context', value: '2+', icon: BriefcaseBusiness },
+  { label: 'Product Domains', value: '3', icon: Target },
+  { label: 'Primary Stack', value: 'MERN', icon: Layers3 },
+  { label: 'Delivery Focus', value: 'UI + APIs', icon: Rocket },
+];
+
+export const experienceItems = [
+  {
+    id: 'mrsac-agrivision',
+    role: 'Full-Stack Developer Intern',
+    organization: 'MRSAC / AgriVision Satellite Lab',
+    period: '2026',
+    location: 'Maharashtra, India',
+    type: 'Private internship project',
+    icon: Building2,
+    projectId: 'agrivision',
+    summary:
+      'Worked on an agriculture intelligence platform focused on satellite field monitoring, vegetation indexes, weather timing, AI cues, and task-oriented field workflows.',
+    responsibilities: [
+      'Designed product-style dashboard screens for field monitoring and operator workflows.',
+      'Structured satellite map, analytics, trends, weather, and task-planning surfaces around real agriculture decisions.',
+      'Connected frontend views with domain concepts such as NDVI, NDMI, EVI, SAVI, field passes, and validation tasks.',
+    ],
+    impact: [
+      'Turned dense geospatial signals into clearer field-health summaries and action cues.',
+      'Built recruiter-visible proof of domain UI, data visualization, and scalable dashboard thinking.',
+    ],
+    stack: ['React.js', 'Python', 'MongoDB', 'REST APIs', 'Satellite Data', 'Geospatial UI'],
+    metrics: [
+      { label: 'Domain', value: 'Agriculture Intelligence' },
+      { label: 'Signals', value: 'NDVI / NDMI / EVI' },
+      { label: 'Workflow', value: 'AI cues + tasks' },
+    ],
+  },
+  {
+    id: 'unisoft-intern',
+    role: 'Instructor & Web Developer Intern',
+    organization: 'Unisoft Technologies',
+    period: 'Training + internship',
+    location: 'India',
+    type: 'Teaching and development',
+    icon: GraduationCap,
+    summary:
+      'Supported learning and development work around programming fundamentals, frontend technologies, UI frameworks, and full-stack web concepts.',
+    responsibilities: [
+      'Guided learners through C/C++, HTML, CSS, JavaScript, and web development fundamentals.',
+      'Explained practical frontend concepts including responsive layouts, UI frameworks, and component thinking.',
+      'Strengthened communication, debugging, and mentoring skills while reinforcing engineering fundamentals.',
+    ],
+    impact: [
+      'Built confidence explaining technical ideas clearly to different skill levels.',
+      'Improved foundation-level programming, frontend, and full-stack communication skills.',
+    ],
+    stack: ['C', 'C++', 'HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
+    metrics: [
+      { label: 'Focus', value: 'Teaching + Web Dev' },
+      { label: 'Concepts', value: 'Programming + UI' },
+      { label: 'Strength', value: 'Communication' },
+    ],
+  },
+  {
+    id: 'project-engineering',
+    role: 'Project-Based Full-Stack Developer',
+    organization: 'Independent Builds',
+    period: 'Portfolio projects',
+    location: 'Remote / self-directed',
+    type: 'Product engineering',
+    icon: BadgeCheck,
+    projectId: 'snaplink',
+    summary:
+      'Built production-oriented portfolio projects that demonstrate frontend UI quality, backend architecture, authentication, analytics, and API integration thinking.',
+    responsibilities: [
+      'Created SnapLink with SSR views, authentication, CSRF protection, rate limits, custom aliases, QR sharing, and MongoDB analytics.',
+      'Built InstaNews around feed-first UI, category navigation, saved article workflows, and API/content integration planning.',
+      'Organized portfolio project content as case studies with architecture flows, screenshots, and engineering highlights.',
+    ],
+    impact: [
+      'Converted personal projects into case-study proof for recruiters and technical reviewers.',
+      'Demonstrated full-stack product thinking across SaaS, content, and data-heavy domains.',
+    ],
+    stack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'EJS', 'TypeScript'],
+    metrics: [
+      { label: 'Projects', value: 'SnapLink + InstaNews' },
+      { label: 'Backend', value: 'Auth + APIs' },
+      { label: 'Proof', value: 'Case studies' },
+    ],
   },
 ];
 
@@ -802,9 +1008,10 @@ export const insights = [
 export const insightCategories = ['All', 'Architecture', 'API Strategy', 'Backend', 'Security'];
 
 export const terminalCommands = {
-  help: ['projects', 'skills', 'resume', 'github', 'contact'],
+  help: ['projects', 'skills', 'experience', 'resume', 'github', 'contact'],
   projects: projects.map((project) => `${project.name} - ${project.type}`),
   skills: skillGroups.flatMap((group) => group.skills.map((skill) => skill.name)),
+  experience: experienceItems.map((item) => `${item.role} - ${item.organization}`),
   resume: [`Resume: ${developer.resumeUrl}`],
   github: [`GitHub: ${developer.links.github}`],
   contact: [`Email: ${developer.email}`, `LinkedIn: ${developer.links.linkedin}`],
@@ -817,25 +1024,133 @@ export const githubStats = [
   { label: 'Database', value: 'MongoDB', icon: Database },
 ];
 
+export const githubProofStats = [
+  {
+    label: 'Featured Builds',
+    value: '3',
+    detail: 'SnapLink, InstaNews, AgriVision',
+    icon: Layers3,
+  },
+  {
+    label: 'Full-Stack Surface',
+    value: 'React + Node',
+    detail: 'Frontend, backend, APIs, databases',
+    icon: Workflow,
+  },
+  {
+    label: 'Production Practices',
+    value: 'Auth + APIs',
+    detail: 'Sessions, CSRF, rate limits, CRUD flows',
+    icon: ShieldCheck,
+  },
+  {
+    label: 'Domain Range',
+    value: 'SaaS + Data',
+    detail: 'URL analytics, news feeds, agriculture intelligence',
+    icon: Activity,
+  },
+];
+
+export const githubLanguageStack = [
+  { language: 'JavaScript', count: 8 },
+  { language: 'React', count: 6 },
+  { language: 'Node.js', count: 5 },
+  { language: 'CSS', count: 5 },
+  { language: 'Python', count: 3 },
+];
+
 export const topRepositories = [
   {
     name: 'SnapLink',
     language: 'JavaScript',
+    type: 'SSR URL Shortener',
+    status: 'Live Demo',
     activity: 'URL platform architecture',
+    description:
+      'Secure SSR URL shortener with authentication, analytics, QR sharing, custom aliases, and MongoDB-backed activity tracking.',
+    stack: ['Node.js', 'Express.js', 'EJS', 'Bootstrap', 'MongoDB'],
     html_url: 'https://github.com/vishal-rathod-02/SnapLink',
   },
   {
     name: 'InstaNews',
     language: 'React',
+    type: 'News Aggregation App',
+    status: 'Repository',
     activity: 'Feed-driven UI system',
+    description:
+      'Modern news interface with category browsing, saved articles, reading surfaces, and API/feed integration planning.',
+    stack: ['React.js', 'Node.js', 'TypeScript', 'API Integration'],
     html_url: 'https://github.com/vishal-rathod-02/Insta-News-App',
   },
-  { name: 'AgriVision', language: 'Full Stack', activity: 'Agriculture intelligence app' },
+  {
+    name: 'AgriVision',
+    language: 'Full Stack',
+    type: 'Private Internship Project',
+    status: 'Private',
+    activity: 'Agriculture intelligence app',
+    description:
+      'Satellite agriculture dashboard with field maps, spectral indexes, weather timing, AI cues, and task planning workflows.',
+    stack: ['React.js', 'Python', 'MongoDB', 'Satellite Data'],
+  },
+  {
+    name: 'Portfolio',
+    language: 'React',
+    type: 'Developer Portfolio',
+    status: 'Current Build',
+    activity: 'Premium portfolio SPA',
+    description:
+      'Interactive software developer portfolio with case-study projects, GitHub dashboard, contact flows, and optimized media.',
+    stack: ['React.js', 'Vite', 'Framer Motion', 'Custom CSS'],
+    html_url: developer.links.github,
+  },
+];
+
+export const contactAvailability = {
+  label: 'Open to opportunities',
+  title: 'Available for full-stack developer roles, internships, and production-focused web projects.',
+  response: 'Usually responds within 24-48 hours.',
+  focus: ['React interfaces', 'Node.js APIs', 'MongoDB systems', 'Responsive UI/UX'],
+  preferred: 'React.js, Node.js, Express.js, MongoDB, JavaScript, Python',
+};
+
+export const contactIntents = [
+  'Full-time role',
+  'Internship opportunity',
+  'Freelance project',
+  'Technical collaboration',
 ];
 
 export const contactMethods = [
-  { label: 'Email', value: developer.email, href: `mailto:${developer.email}`, icon: Mail },
-  { label: 'LinkedIn', value: 'linkedin.com/in/vishalrathod02', href: developer.links.linkedin, icon: Globe2 },
-  { label: 'GitHub', value: 'github.com/vishal-rathod-02', href: developer.links.github, icon: GitBranch },
-  { label: 'Resume', value: 'Vishal_Rathod_Resume.pdf', href: developer.resumeUrl, icon: Code2 },
+  {
+    label: 'Email',
+    value: developer.email,
+    href: `mailto:${developer.email}`,
+    icon: Mail,
+    purpose: 'Best for role discussions and project inquiries.',
+    action: 'Send',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/vishalrathod02',
+    href: developer.links.linkedin,
+    icon: BriefcaseBusiness,
+    purpose: 'Professional profile, recruiter messages, and networking.',
+    action: 'View',
+  },
+  {
+    label: 'GitHub',
+    value: 'github.com/vishal-rathod-02',
+    href: developer.links.github,
+    icon: GitBranch,
+    purpose: 'Repositories, source code, and public development activity.',
+    action: 'Open',
+  },
+  {
+    label: 'Resume',
+    value: 'Vishal_Rathod_Resume.pdf',
+    href: developer.resumeUrl,
+    icon: Download,
+    purpose: 'Downloadable resume for screening and interview context.',
+    action: 'Download',
+  },
 ];

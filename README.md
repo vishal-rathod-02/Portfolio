@@ -2,6 +2,8 @@
 
 A modern, premium software developer portfolio built as a single page application. The portfolio is designed to feel like a polished software product: interactive, responsive, engineering-focused, and suitable for recruiters or clients reviewing full-stack development work.
 
+![Vishal Rathod portfolio preview](public/assets/portfolio-og.jpg)
+
 ## Highlights
 
 - Premium landing-page layout with smooth section transitions
@@ -9,7 +11,7 @@ A modern, premium software developer portfolio built as a single page applicatio
 - Interactive hero section with animated developer profile card
 - Engineering-focused About section with stack visualization
 - Dynamic Skills dashboard grouped by real development capability
-- Project showcase with architecture preview modals
+- Project showcase with optimized case-study screenshots and architecture preview modals
 - Developer Insights section for implementation-focused notes
 - Mini interactive terminal for quick portfolio commands
 - GitHub dashboard with live GitHub API data
@@ -19,9 +21,9 @@ A modern, premium software developer portfolio built as a single page applicatio
 ## Tech Stack
 
 - **Frontend:** React.js, Vite, JavaScript
-- **Animation:** Framer Motion, CSS transitions
+- **Animation:** Framer Motion, Tailwind transitions, CSS keyframes
 - **Icons:** Lucide React
-- **Styling:** Custom CSS, glassmorphism, responsive layouts
+- **Styling:** Tailwind CSS + custom CSS for complex motion, glassmorphism, and responsive layouts
 - **Data:** Central portfolio model with reusable content objects
 - **API Integration:** GitHub REST API for profile and repository data
 
@@ -34,7 +36,7 @@ src/
   controllers/      Reusable hooks and interaction logic
   models/           Portfolio content, project data, skills, links, insights
   services/         External API services such as GitHub
-  styles/           Global design system and responsive CSS
+  styles/           Tailwind entry, design tokens, and custom animation CSS
   views/
     components/     Reusable UI components
     sections/       Main portfolio page sections
@@ -103,6 +105,18 @@ public/assets/
 ```
 
 Use that folder for your profile image, resume, project preview images, and other public portfolio assets.
+
+Project case-study screenshots are served from:
+
+```txt
+public/assets/projects/optimized/
+```
+
+The Open Graph / social sharing preview image is:
+
+```txt
+public/assets/portfolio-og.jpg
+```
 
 ## GitHub Setup
 
