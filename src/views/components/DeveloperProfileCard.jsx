@@ -1,143 +1,227 @@
-import { motion } from 'framer-motion';
-import { Activity, Code2, Database, GitBranch, RadioTower, Server, ShieldCheck } from 'lucide-react';
-import { useMagneticTilt } from '../../controllers/useMagneticTilt';
-import { developer } from '../../models/portfolio.model';
+import { motion } from "framer-motion";
+import { ArrowUpRight, Blocks, Github, Maximize2, Play } from "lucide-react";
+import { useState } from "react";
 
-const codeLines = [
-  'const stack = ["React", "Node", "MongoDB"];',
-  'async function ship(product) {',
-  '  return build.scalable(product);',
-  '}',
-];
-
-const particles = Array.from({ length: 14 }, (_, index) => index + 1);
-
-const profileSignals = [
-  {
-    label: 'Interface',
-    value: 'React UI',
-    icon: Code2,
-  },
-  {
-    label: 'Server',
-    value: 'Express APIs',
-    icon: Server,
-  },
-  {
-    label: 'Data',
-    value: 'MongoDB',
-    icon: Database,
-  },
-];
-
-export function DeveloperProfileCard() {
-  const { transform, pointerHandlers } = useMagneticTilt(16);
+export function ProjectCard({
+  project,
+  onArchitectureClick,
+  onGalleryOpen,
+  index,
+}) {
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const Icon = project.icon;
+  const previewStats = project.preview?.stats ?? [];
+  const mediaItems = project.media ?? [];
+  const activeMedia = mediaItems[activeMediaIndex] ?? mediaItems[0];
 
   return (
-    <div className="profile-scene" aria-label="Interactive developer profile">
-      <div className="profile-ambient" aria-hidden="true">
-        <span className="profile-ring profile-ring--outer" />
-        <span className="profile-ring profile-ring--inner" />
-        {particles.map((particle) => (
-          <span key={particle} className={`profile-particle profile-particle--${particle}`} />
-        ))}
+    <motion.article
+      className="project-card"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.65,
+        delay: index * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      <div className="project-preview">
+        <div className="project-preview__window">
+          <div className="window-dots">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div
+            className={`project-logo-frame ${activeMedia ? "project-logo-frame--media" : ""}`}
+          >
+            {activeMedia ? (
+              <>
+                <button
+                  type="button"
+                  className="project-media-frame project-media-frame--button"
+                  onClick={() => onGalleryOpen(project, activeMediaIndex)}
+                  aria-label={`Open ${project.name} ${activeMedia.label} screenshot gallery`}
+                >
+                  <img
+                    className="project-media-image"
+                    src={activeMedia.src}
+                    alt={activeMedia.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="project-media-caption">
+                    <span>{activeMedia.label}</span>
+                    <strong>{activeMedia.description}</strong>
+                  </div>
+                  <span className="project-media-expand">
+                    <Maximize2 size={15} />
+                    View gallery
+                  </span>
+                </button>
+                <div
+                  className="project-media-controls"
+                  aria-label={`${project.name} screenshots`}
+                >
+                  {mediaItems.map((item, mediaIndex) => (
+                    <button
+                      type="button"
+                      key={item.label}
+                      className={
+                        mediaIndex === activeMediaIndex
+                          ? "project-media-dot project-media-dot--active"
+                          : "project-media-dot"
+                      }
+                      onClick={() => setActiveMediaIndex(mediaIndex)}
+                      aria-label={`Show ${item.label} preview`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <img
+                  src={project.image}
+                  alt={`${project.name} logo`}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="project-preview-copy">
+                  <strong>{project.preview?.title ?? project.name}</strong>
+                  <p>{project.preview?.subtitle ?? project.overview}</p>
+                </div>
+                <div
+                  className="project-preview-tags"
+                  aria-label={`${project.name} preview highlights`}
+                >
+                  {previewStats.map((stat) => (
+                    <span key={stat}>{stat}</span>
+                  ))}
+                </div>
+                <span className="project-preview-status">
+                  <Play size={15} fill="currentColor" />
+                  {project.status ?? "Case study"}
+                </span>
+              </>
+            )}
+          </div>
+          {activeMedia ? (
+            <div className="project-preview-meta">
+              <span>
+                <Play size={15} fill="currentColor" />
+                {project.status ?? "Case study"}
+              </span>
+              {previewStats.map((stat) => (
+                <span key={stat}>{stat}</span>
+              ))}
+            </div>
+          ) : (
+            <div className="preview-bars" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+          )}
+        </div>
       </div>
 
-      <motion.div
-        className="code-panel"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <div className="code-panel__toolbar">
-          <span />
-          <span />
-          <span />
+      <div className="project-content">
+        <span className="project-type">
+          <Icon size={16} />
+          {project.type}
+        </span>
+        <div className="project-title-lockup">
+          <span className="project-favicon" aria-hidden="true">
+            <img src={project.image} alt="" loading="lazy" decoding="async" />
+          </span>
+          <div>
+            <h3>{project.name}</h3>
+            <span>{project.status ?? "Case study"}</span>
+          </div>
         </div>
-        {codeLines.map((line) => (
-          <code key={line}>{line}</code>
-        ))}
-      </motion.div>
+        <p>{project.overview}</p>
 
-      <motion.div
-        className="profile-card-shell"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <article
-          className="profile-card"
-          style={{
-            transform: `perspective(900px) translate3d(${transform.translateX}px, ${transform.translateY}px, 0) rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg)`,
-          }}
-          {...pointerHandlers}
+        <div className="project-role">
+          <span>Role</span>
+          <strong>{project.role}</strong>
+        </div>
+
+        <div
+          className="project-metrics"
+          aria-label={`${project.name} project metrics`}
         >
-          <div className="profile-card__topbar">
-            <span className="profile-topbar__status">
-              <span className="status-dot" />
-              Available for full-stack roles
-            </span>
-            <span className="profile-topbar__id">VR / 02</span>
-          </div>
-
-          <div className="profile-card__image-wrap">
-            <img src={developer.profileImage} alt="Vishal Rathod" className="profile-card__image" loading="eager" />
-            <span className="profile-image-badge">
-              <ShieldCheck size={14} />
-              Product-minded developer
-            </span>
-          </div>
-
-          <div className="profile-card__content">
-            <div className="profile-card__identity">
-              <span className="profile-kicker">
-                <Code2 size={15} />
-                Software Developer Profile
-              </span>
-              <h3>{developer.name}</h3>
-              <p>{developer.role} focused on scalable React interfaces, Node.js APIs, and production-ready web systems.</p>
+          {project.metrics?.map((metric) => (
+            <div key={metric.label}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
             </div>
+          ))}
+        </div>
 
-            <div className="profile-live-panel">
-              <div>
-                <span className="status-dot" />
-                <strong>{developer.status}</strong>
-                <small>Current engineering focus</small>
-              </div>
-              <RadioTower size={16} />
-            </div>
+        <div className="project-list">
+          <strong>Key features</strong>
+          <ul>
+            {project.features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        </div>
 
-            <div className="profile-signal-grid" aria-label="Developer profile signals">
-              {profileSignals.map((signal) => {
-                const Icon = signal.icon;
+        <div className="stack-row">
+          {project.techStack.map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
 
-                return (
-                  <span key={signal.label}>
-                    <Icon size={16} />
-                    <small>{signal.label}</small>
-                    <strong>{signal.value}</strong>
-                  </span>
-                );
-              })}
-            </div>
+        <div className="project-highlights">
+          {project.highlights.map((highlight) => (
+            <p key={highlight}>{highlight}</p>
+          ))}
+        </div>
 
-            <div className="profile-readiness">
-              <div>
-                <span>
-                  <GitBranch size={15} />
-                  Stack readiness
-                </span>
-                <strong>MERN-focused delivery</strong>
-              </div>
-              <div className="profile-readiness__bar" aria-hidden="true">
-                <span />
-              </div>
-              <small>
-                <Activity size={14} />
-                Projects, APIs, dashboards, and authenticated workflows
-              </small>
-            </div>
-          </div>
-        </article>
-      </motion.div>
-    </div>
+        <div className="project-actions">
+          {project.liveUrl ? (
+            <a
+              className="text-button project-action project-action--primary"
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Live Demo
+              <ArrowUpRight size={17} />
+            </a>
+          ) : null}
+          {project.sourceUrl ? (
+            <a
+              className="text-button project-action"
+              href={project.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Github size={17} />
+              Source
+            </a>
+          ) : null}
+          <button
+            type="button"
+            className="text-button project-action"
+            onClick={() => onArchitectureClick(project)}
+          >
+            <Blocks size={17} />
+            Architecture
+          </button>
+          <a
+            className="text-button project-action project-action--quiet"
+            href="#contact"
+          >
+            Discuss project
+            <ArrowUpRight size={17} />
+          </a>
+        </div>
+      </div>
+    </motion.article>
   );
 }
